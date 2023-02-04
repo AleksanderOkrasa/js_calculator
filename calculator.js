@@ -31,6 +31,17 @@ class BasicCalculator{
 
 };
 
+class ExtendedCalculator extends BasicCalculator {
+// Inheritance of the entire base class ( constructor and methods )
+
+    compounding(){
+    // addition of an additional method
+        this.result = Math.pow(this.x, this.y); 
+        console.log(`Result: ${this.x} ^ ${this.y} = ${this.result}`)
+        document.write(`Result: ${this.x} ^ ${this.y} = ${this.result}`)
+    }
+
+}
 
 
 function BasicInputTaker(){
