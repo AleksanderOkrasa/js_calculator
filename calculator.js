@@ -1,5 +1,5 @@
 class BasicCalculator{
-
+// Base class that will later be inherited
     constructor(x, y){
         this.x = x;
         this.y = y;
@@ -44,12 +44,9 @@ class ExtendedCalculator extends BasicCalculator {
 }
 
 
+
 function BasicInputTaker(){
-/*
-I have read that it is more recommended to use classes when inheriting, 
-but for the purpose of learning the possibilities of inheritance and object-orientedness in JS,
-I used the function here
-*/
+// Base function that will later be inherited
     this.input_x = prompt("Give x: ")
     console.log("input x: " + this.input_x);
     this.input_y = prompt("Give y: ")
@@ -57,6 +54,7 @@ I used the function here
 }
 
 BasicInputTaker.prototype.createCalculatorObject = function() {
+// Method that converts passed values in constructor to integers and creates an object on the BasicCalculator class
     this.int_x = parseInt(this.input_x)
     this.int_y = parseInt(this.input_y)
     console.log("int x: " + this.int_x);
@@ -65,15 +63,14 @@ BasicInputTaker.prototype.createCalculatorObject = function() {
 }
 
 BasicInputTaker.prototype.selectAction = function() {
+// method that displays an alert about possible actions and assigns a character to a variable
     window.alert(" type '+' if you want to add \n type '-' of you want to subtract \n type '*' if you want to multiply \n type '/' if you want to divide ");
-
     this.input_action = prompt("What do you want to do?")
-
 }
 
 BasicInputTaker.prototype.performActionOnCalculator = function() {
+// method that decides to perform an action on a calculator object
     switch (this.input_action) {
-
         case '+':
             this.calc.add();
             break;
@@ -94,8 +91,7 @@ BasicInputTaker.prototype.performActionOnCalculator = function() {
 };
 
 function ExtendedInputTaker(){
-    BasicInputTaker.call(this);
-    // Inheritance of the base function constructor
+    BasicInputTaker.call(this);  // Inheritance of the base function constructor
 }
 
 ExtendedInputTaker.prototype = Object.create(BasicInputTaker.prototype);
@@ -107,10 +103,28 @@ ExtendedInputTaker.prototype.createCalculatorObject = function() {
     this.float_y = parseFloat(this.input_y)
     console.log("int x: " + this.float_x);
     console.log("int y: " + this.float_y);
+    // this.calc = new BasicCalculator(this.float_x, this.float_y);
     this.calc = new ExtendedCalculator(this.float_x, this.float_y);
 }
 
-// window.alert(" type '+' if you want to add \n type '-' of you want to subtract \n type '*' if you want to multiply \n type '/' if you want to divide \n type '^' if you want to compound ");
+ExtendedInputTaker.prototype.selectAction = function() {
+// Overriding a method from the base function
+    window.alert(" type '+' if you want to add \n type '-' of you want to subtract \n type '*' if you want to multiply \n type '/' if you want to divide \n type '^' if you want to compounding ");
+    this.input_action = prompt("What do you want to do?")
+}
+
+ExtendedInputTaker.prototype.performActionOnCalculator = function() {
+// Overriding a method from the base functio
+    if (this.input_action == '^') {
+        this.calc.compounding();
+        return
+    };
+
+    BasicInputTaker.prototype.performActionOnCalculator.call(this);
+    //Calling the base method (it is possible that this is not available when inheriting from a class (not a function), idk)
+};
+
+
 
 
 
