@@ -56,7 +56,7 @@ I used the function here
     console.log("input y: " + this.input_y);
 }
 
-BasicInputTaker.prototype.runBasicCalculator = function() {
+BasicInputTaker.prototype.createCalculatorObject = function() {
     this.int_x = parseInt(this.input_x)
     this.int_y = parseInt(this.input_y)
     console.log("int x: " + this.int_x);
@@ -64,10 +64,14 @@ BasicInputTaker.prototype.runBasicCalculator = function() {
     this.calc = new BasicCalculator(this.int_x, this.int_y);
 }
 
-BasicInputTaker.prototype.selectActionBasicCalculator = function() {
+BasicInputTaker.prototype.selectAction = function() {
+    window.alert(" type '+' if you want to add \n type '-' of you want to subtract \n type '*' if you want to multiply \n type '/' if you want to divide ");
 
     this.input_action = prompt("What do you want to do?")
 
+}
+
+BasicInputTaker.prototype.performActionOnCalculator = function() {
     switch (this.input_action) {
 
         case '+':
@@ -84,8 +88,8 @@ BasicInputTaker.prototype.selectActionBasicCalculator = function() {
             break;
 
         default:
-            console.log(`Bad input action value, you sent "${input_action}", try: '+', '-', '*', '/'.`);
-            document.write(`Bad input action value, you sent "${input_action}", try: '+', '-', '*', '/'.`);
+            console.log(`Bad input action value, you sent "${input_action}"`);
+            document.write(`Bad input action value, you sent "${input_action}"`);
     };
 };
 
@@ -97,17 +101,21 @@ function ExtendedInputTaker(){
 ExtendedInputTaker.prototype = Object.create(BasicInputTaker.prototype);
 // Inheritance of a prototype from a base function
 
-ExtendedInputTaker.prototype.runBasicCalculator = function() {
+ExtendedInputTaker.prototype.createCalculatorObject = function() {
 // Overriding a method from the base function ( change from int to float )
     this.float_x = parseFloat(this.input_x)
     this.float_y = parseFloat(this.input_y)
     console.log("int x: " + this.float_x);
     console.log("int y: " + this.float_y);
-    this.calc = new BasicCalculator(this.float_x, this.float_y);
+    this.calc = new ExtendedCalculator(this.float_x, this.float_y);
 }
+
+// window.alert(" type '+' if you want to add \n type '-' of you want to subtract \n type '*' if you want to multiply \n type '/' if you want to divide \n type '^' if you want to compound ");
+
 
 
 // const input = new BasicInputTaker();
 const input = new ExtendedInputTaker();
-input.runBasicCalculator();
-input.selectActionBasicCalculator();
+input.createCalculatorObject();
+input.selectAction();
+input.performActionOnCalculator();
